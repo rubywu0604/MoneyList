@@ -1,2 +1,4 @@
 # MoneyList
-project
+This project is a useful tool for record down your spending and earning.
+
+TEST
