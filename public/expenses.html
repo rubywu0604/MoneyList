@@ -17,18 +17,71 @@
       <h3>Add New expense</h3>
       <ul>
         <span class="">Date/Time</span>
-        <input type="date" name="date" value="">
-        <input type="time" name="time" value="">
+        <input type="date" name="date" id="inputdate">
+        <input type="time" name="time" id="inputtime">
         <span class="">Tag</span>
-        <input type="text" name="tag" value="">
+        <input type="text" name="tag" id="inputtag">
         <span class="">Amount</span>
-        <input type="number" name="amount" value="">
-        <button type="save" name="save" value="submit" onclick="run()">Save</button>
+        <input type="number" name="amount" id="inputamount">
+        <button type="save" name="save" value="submit" id="click">Save</button>
       </ul>
+
+      <script type="text/javascript">
+
+        document.getElementById('click').onclick = function insertOne(){
+          const date = document.getElementById('inputdate').value;
+          const time = document.getElementById('inputtime').value;
+          const tag = document.getElementById('inputtag').value;
+          const amount = document.getElementById('inputamount').value;
+          document.getElementById('listdate').textContent = date;
+          document.getElementById('listtime').textContent = time;
+          document.getElementById('listtag').textContent = tag;
+          document.getElementById('listamount').textContent = amount;
+
+          const data = {date, time, tag, amount};
+          console.log("DATA", data);
+
+          const options = { // package data as a POST
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data) //put data into javascript object
+          };
+          console.log( "options", options);
+          console.log("BODY" + options.body);
+
+          fetch('/expenses.html', options).then(response => { // fetch POST
+            console.log(response); //then handle the response
+          });
+        }
+      </script>
     </section>
 
     <footer>
       <h3>Expenses List</h3>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Tag</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <br>
+      <tbody>
+        <tr>
+          <td><span id="listdate"></span></td>
+          <td><span id="listtime"></span></td>
+          <td><span id="listtag"></span></td>
+          <td><span id="listamount"></span></td>
+         </tr>
+
+      </tbody>
+      <br>
+      <tfoot>
+
+      </tfoot>
     </footer>
 
   </body>
