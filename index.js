@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
+const fs = require('fs')
 const port = 8080;
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://rubywu0604:Qazj6qup3u60604@clusterml.bpo5zjn.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
 
-app.listen(port, () => console.info(`listen on port ${port}`));
+app.listen(port, () => {console.log(`listen on the port ${port}`)});
 app.use(express.static(__dirname + '/public'));
 
 app.get("/expenses.html", function (req, res) {
@@ -15,7 +16,7 @@ app.get("/expenses.html", function (req, res) {
 app.get("/incomes.html", function (req, res) {
   res.render("incomes");
 })
-//
+
 // async function run() {
 //   try {
 //     await client.connect();
@@ -29,4 +30,16 @@ app.get("/incomes.html", function (req, res) {
 //   }
 // }
 // run().catch(console.error);
-//
+
+
+//expenses
+// const expapi = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
+
+app.post('/expenses.html', (request, response) => {
+  console.log('I got a request!')
+  // const data = request.body;
+  console.log(request);
+  response.json(request.body);
+});
+//incomes
+// const incapi = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
