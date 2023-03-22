@@ -8,6 +8,7 @@ const client = new MongoClient(uri);
 
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
 app.use(express.static(__dirname + '/public'));
+app.use(express.json({limit: '1mb'}));
 
 app.get("/expenses.html", function (req, res) {
   res.render("expenses");
@@ -37,8 +38,8 @@ app.get("/incomes.html", function (req, res) {
 
 app.post('/expenses.html', (request, response) => {
   console.log('I got a request!')
-  // const data = request.body;
-  console.log(request);
+  const data = request.body;
+  console.log(data);
   response.json(request.body);
 });
 //incomes

@@ -31,8 +31,8 @@
         document.getElementById('click').onclick = function insertOne(){
           const date = document.getElementById('inputdate').value;
           const time = document.getElementById('inputtime').value;
-          const tag = document.getElementById('inputtag').value;
-          const amount = document.getElementById('inputamount').value;
+          const tag = document.getElementById('inputtag').value.toString();
+          const amount = parseInt(document.getElementById('inputamount').value);
           document.getElementById('listdate').textContent = date;
           document.getElementById('listtime').textContent = time;
           document.getElementById('listtag').textContent = tag;
@@ -49,7 +49,6 @@
             body: JSON.stringify(data) //put data into javascript object
           };
           console.log( "options", options);
-          console.log("BODY" + options.body);
 
           fetch('/expenses.html', options).then(response => { // fetch POST
             console.log(response); //then handle the response
