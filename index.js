@@ -18,29 +18,24 @@ app.get("/incomes.html", function (req, res) {
   res.render("incomes");
 })
 
-// async function run() {
-//   try {
-//     await client.connect();
-//     const db = client.db('moneyList');
-//     const collection = db.collection('expenses');
-//
-//     const first = await collection.insertOne({"date":"mm-dd-yy" , "tag": "dinner", "amount": 200, "Notes": null});
-//     console.log(first);
-//   } finally {
-//     await client.close();
-//   }
-// }
-// run().catch(console.error);
-
-
 //expenses
-// const expapi = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
-
-app.post('https://rubywu0604.github.io/MoneyList/public/expenses.html', (request, response) => {
-  console.log('I got a request!')
-  const data = request.body;
-  console.log(data);
-  response.json(request.body);
-});
+// const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
 //incomes
-// const incapi = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+// const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+
+app.post('/expenses.html', (request, response) => {
+  const data = request.body;
+  console.log('I got a request!', data);
+
+  async function run() {
+  const db = client.db('moneyList');
+  const collection = db.collection('expenses');
+  const insertOne = await collection.insertOne(data);
+  console.log(insertOne, 'Data inserted!');
+  response.json();
+}
+
+run().catch(err => {
+  response.json({err: 'Could not create a document.'});
+})
+});
