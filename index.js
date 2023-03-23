@@ -36,7 +36,7 @@ app.get("/incomes.html", function (req, res) {
 //expenses
 // const expapi = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
 
-app.post('/expenses.html', (request, response) => {
+app.post('https://rubywu0604.github.io/MoneyList/public/expenses.html', (request, response) => {
   console.log('I got a request!')
   const data = request.body;
   console.log(data);

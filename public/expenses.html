@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" http-equiv="Permissions-Policy" content="interest-cohort=()">
     <title>Expenses</title>
   </head>
   <body>
@@ -50,7 +50,7 @@
           };
           console.log( "options", options);
 
-          fetch('/expenses.html', options).then(response => { // fetch POST
+          fetch('https://rubywu0604.github.io/MoneyList/public/expenses.html', options).then(response => { // fetch POST
             console.log(response); //then handle the response
           });
         }
