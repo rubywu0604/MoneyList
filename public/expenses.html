@@ -39,7 +39,6 @@
           document.getElementById('listamount').textContent = amount;
 
           const data = {date, time, tag, amount};
-          console.log("DATA", data);
 
           const options = { // package data as a POST
             method: 'POST',
@@ -48,12 +47,13 @@
             },
             body: JSON.stringify(data) //put data into javascript object
           };
-          console.log( "options", options);
 
-          fetch('https://rubywu0604.github.io/MoneyList/public/expenses.html', options).then(response => { // fetch POST
-            console.log(response); //then handle the response
-          });
-        }
+          fetch('/expenses.html', options)
+            .then(response => {
+              console.log(JSON.parse(options.body), response);
+            })
+          alert('expense saved!');
+        };
       </script>
     </section>
 
