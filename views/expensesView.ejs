@@ -77,10 +77,9 @@
       </div>
       <br>
       <div class="">
-        <span><%= historyExpDate %></span>
-        <span><%= historyExpTime %></span>
-        <span><%= historyExpTag %></span>
-        <span><%= historyExpAmount %></span>
+        <% historyExpList.forEach(expList => { %>
+          <p><%= expList.date %></p>
+        <% }) %>
       </div>
     </footer>
 
