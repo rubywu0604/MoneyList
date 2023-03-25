@@ -15,6 +15,7 @@ const expSchema  = {
   tag: String,
   amount: Number
 }
+const expensesDB = mongoose.model('expenses', expSchema);
 
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
 app.use(express.static('/views'));
@@ -23,28 +24,17 @@ app.use(express.json({limit: '1mb'}));
 
 app.set("view engine", "ejs")
 
-app.get("/expenses.html", async function (req, res) {
-  let historyExp = await collectionExp.find({}).sort({date:'desc'}).project({_id:0}).toArray();
-  console.log(historyExp);
-  res.render("expensesView", historyExp.forEach((element) => {
-    console.log(element);
-      historyExpDate = element.date;
-      historyExpTime = element.time;
-      historyExpTag = element.tag;
-      historyExpAmount = element.amount;
+app.get("/expenses.html", (request, response) => {
+  async function getHistory() {
+    const historyExp = await collectionExp.find({}).sort({date:'desc'}).project({_id:0}).toArray();
+    console.log('history data form DB', historyExp);
+    response.render("expensesView", {
+      historyExpList: historyExp
+    })
+  }
+  getHistory().catch(err => {
+    response.json({err: 'Could not create a document.'});
   })
- )
-})
-  //  {
-  //   historyExpDate: historyExp[0].date,
-  //   historyExpTime: historyExp[0].time,
-  //   historyExpTag: historyExp[0].tag,
-  //   historyExpAmount: historyExp[0].amount
-  // });
-
-app.get("/incomes.html", function (req, res) {
-  res.render("incomesView", {
-  });
 })
 
 //expenses
@@ -58,10 +48,11 @@ app.post('/expenses.html', (request, response) => {
 
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
-  console.log(insertOne, 'Data inserted!');
+  console.log('Data inserted!', insertOne);
   response.json();
 }
 run().catch(err => {
   response.json({err: 'Could not create a document.'});
 })
 })
+
