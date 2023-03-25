@@ -5,17 +5,39 @@ const port = 8080;
 const { MongoClient } = require('mongodb');
 const uri = "mongodb+srv://rubywu0604:Qazj6qup3u60604@clusterml.bpo5zjn.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri);
+const db = client.db('moneyList');
+const collectionExp = db.collection('expenses');
+const ejs = require('ejs');
 
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('/views'));
+app.use(express.static('/public'));
 app.use(express.json({limit: '1mb'}));
 
-app.get("/expenses.html", function (req, res) {
-  res.render("expenses");
+app.set("view engine", "ejs")
+
+app.get("/expenses.html", async function (req, res) {
+  let historyExp = await collectionExp.find({}).sort({date:'desc'}).project({_id:0}).toArray();
+  console.log(historyExp);
+  res.render("expensesView", historyExp.forEach((element) => {
+    console.log(element);
+      historyExpDate = element.date;
+      historyExpTime = element.time;
+      historyExpTag = element.tag;
+      historyExpAmount = element.amount;
+  })
+ )
 })
+  //  {
+  //   historyExpDate: historyExp[0].date,
+  //   historyExpTime: historyExp[0].time,
+  //   historyExpTag: historyExp[0].tag,
+  //   historyExpAmount: historyExp[0].amount
+  // });
 
 app.get("/incomes.html", function (req, res) {
-  res.render("incomes");
+  res.render("incomesView", {
+  });
 })
 
 //expenses
@@ -28,14 +50,11 @@ app.post('/expenses.html', (request, response) => {
   console.log('I got a request!', data);
 
   async function run() {
-  const db = client.db('moneyList');
-  const collection = db.collection('expenses');
-  const insertOne = await collection.insertOne(data);
+  const insertOne = await collectionExp.insertOne(data);
   console.log(insertOne, 'Data inserted!');
   response.json();
 }
-
 run().catch(err => {
   response.json({err: 'Could not create a document.'});
 })
-});
+})
