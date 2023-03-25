@@ -40,6 +40,9 @@ app.get("/expenses.html", (request, response) => {
 //expenses
 // const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
 //incomes
+<<<<<<< HEAD
+// const incapi = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+=======
 // const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
 
 app.post('/expenses.html', (request, response) => {
@@ -54,5 +57,14 @@ app.post('/expenses.html', (request, response) => {
 run().catch(err => {
   response.json({err: 'Could not create a document.'});
 })
+<<<<<<< HEAD
+<<<<<<< HEAD
+});
+>>>>>>> 5760fa0 (save data into mongodb after server rcv post req)
+=======
+})
+>>>>>>> 84abe23 (amend path: app.use / add fnc: app.set and app.get / retrieve history data from db)
+=======
 })
 
+>>>>>>> 1aa2538 (re-write app.get)
