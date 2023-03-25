@@ -9,6 +9,12 @@ const db = client.db('moneyList');
 const collectionExp = db.collection('expenses');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const expSchema  = {
+  date: Date,
+  time: String,
+  tag: String,
+  amount: Number
+}
 
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
 app.use(express.static('/views'));
@@ -17,7 +23,7 @@ app.use(express.json({limit: '1mb'}));
 
 app.set("view engine", "ejs")
 
-app.get("/expenses.html", async function (req, res) {  
+app.get("/expenses.html", async function (req, res) {
   let historyExp = await collectionExp.find({}).sort({date:'desc'}).project({_id:0}).toArray();
   console.log(historyExp);
   res.render("expensesView", historyExp.forEach((element) => {
