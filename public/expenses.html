@@ -58,29 +58,30 @@
     </section>
 
     <footer>
-      <h3>Expenses List</h3>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Tag</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <br>
-      <tbody>
-        <tr>
-          <td><span id="listdate"></span></td>
-          <td><span id="listtime"></span></td>
-          <td><span id="listtag"></span></td>
-          <td><span id="listamount"></span></td>
-         </tr>
+      <div class="">
+        <h3>Expenses List</h3>
+      </div>
 
-      </tbody>
+      <div class="">
+        <span>Date</span>
+        <span>Time</span>
+        <span>Tage</span>
+        <span>Amount</span>
+      </div>
       <br>
-      <tfoot>
-
-      </tfoot>
+      <div class="">
+        <span id="listdate"></span>
+        <span id="listtime"></span>
+        <span id="listtag"></span>
+        <span id="listamount"></span>
+      </div>
+      <br>
+      <div class="">
+        <span><%= historyExpDate %></span>
+        <span><%= historyExpTime %></span>
+        <span><%= historyExpTag %></span>
+        <span><%= historyExpAmount %></span>
+      </div>
     </footer>
 
   </body>
