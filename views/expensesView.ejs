@@ -34,10 +34,6 @@
           const time = document.getElementById('inputtime').value;
           const tag = document.getElementById('inputtag').value.toString();
           const amount = parseInt(document.getElementById('inputamount').value);
-          document.getElementById('listdate').textContent = date;
-          document.getElementById('listtime').textContent = time;
-          document.getElementById('listtag').textContent = tag;
-          document.getElementById('listamount').textContent = amount;
 
           const data = {date, time, tag, amount};
 
@@ -54,6 +50,11 @@
               console.log(JSON.parse(options.body), response);
             })
           alert('expense saved!');
+          
+          const refreshPage = () => {
+            location.reload();
+          }
+          addEventListener('click', refreshPage)
         };
       </script>
     </section>
@@ -70,12 +71,6 @@
        </tr>
      </thead>
      <tbody class="table-group-divider">
-       <tr>
-         <th id="listdate"></th>
-         <td id="listtime"></td>
-         <td id="listtag"></td>
-         <td id="listamount"></td>
-       </tr>
        <% historyExpList.forEach(expList => { %>
        <tr>
          <th><p><%= expList.date %></p></th>
