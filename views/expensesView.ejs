@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>Expenses</title>
   </head>
   <body>
@@ -58,30 +59,33 @@
     </section>
 
     <footer>
-      <div class="">
-        <h3>Expenses List</h3>
-      </div>
-
-      <div class="">
-        <span>Date</span>
-        <span>Time</span>
-        <span>Tage</span>
-        <span>Amount</span>
-      </div>
-      <br>
-      <div class="">
-        <span id="listdate"></span>
-        <span id="listtime"></span>
-        <span id="listtag"></span>
-        <span id="listamount"></span>
-      </div>
-      <br>
-      <div class="">
-        <% historyExpList.forEach(expList => { %>
-          <p><%= expList.date %></p>
-        <% }) %>
-      </div>
-    </footer>
-
+      <h3>Expenses List</h3>
+      <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Time</th>
+          <th scope="col">Tag</th>
+          <th scope="col">Amount</th>
+       </tr>
+     </thead>
+     <tbody class="table-group-divider">
+       <tr>
+         <th id="listdate"></th>
+         <td id="listtime"></td>
+         <td id="listtag"></td>
+         <td id="listamount"></td>
+       </tr>
+       <% historyExpList.forEach(expList => { %>
+       <tr>
+         <th><p><%= expList.date %></p></th>
+         <td><p><%= expList.time %></p></td>
+         <td><p><%= expList.tag %></p></td>
+         <td><p><%= expList.amount %></p></td>
+      </tr>
+      <% }) %>
+     </tbody>
+     </table>
+   </footer>
   </body>
 </html>

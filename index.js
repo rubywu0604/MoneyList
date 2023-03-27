@@ -27,9 +27,9 @@ app.set("view engine", "ejs")
 app.get("/expenses.html", (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).project({_id:0}).toArray();
-    console.log('history data form DB', historyExp);
+    console.log('history data from DB', historyExp);
     response.render("expensesView", {
-      historyExpList: historyExp
+      historyExpList: historyExp,
     })
   }
   getHistory().catch(err => {
@@ -55,3 +55,4 @@ run().catch(err => {
   response.json({err: 'Could not create a document.'});
 })
 })
+
