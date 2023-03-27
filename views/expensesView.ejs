@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" http-equiv="Permissions-Policy" content="interest-cohort=()">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Expenses</title>
   </head>
   <body>
@@ -16,20 +16,20 @@
 
     <section>
       <h3>Add New expense</h3>
-      <ul>
-        <span class="">Date/Time</span>
-        <input type="date" name="date" id="inputdate">
-        <input type="time" name="time" id="inputtime">
-        <span class="">Tag</span>
-        <input type="text" name="tag" id="inputtag">
-        <span class="">Amount</span>
-        <input type="number" name="amount" id="inputamount">
-        <button type="save" name="save" value="submit" id="click">Save</button>
+      <ul class="NewExp">
+        <span>Date/Time</span>
+          <input type="date" name="date" id="inputdate">
+          <input type="time" name="time" id="inputtime">
+        <span>Tag</span>
+          <input type="text" name="tag" id="inputtag">
+        <span>Amount</span>
+          <input type="number" name="amount" id="inputamount">
+        <button type="Save" name="save" value="submit" id="savebtn">Save</button>
       </ul>
 
       <script type="text/javascript">
 
-        document.getElementById('click').onclick = function insertOne(){
+        document.getElementById('savebtn').onclick = function insertOne(){
           const date = document.getElementById('inputdate').value;
           const time = document.getElementById('inputtime').value;
           const tag = document.getElementById('inputtag').value.toString();
@@ -50,7 +50,7 @@
               console.log(JSON.parse(options.body), response);
             })
           alert('expense saved!');
-          
+
           const refreshPage = () => {
             location.reload();
           }
@@ -68,15 +68,19 @@
           <th scope="col">Time</th>
           <th scope="col">Tag</th>
           <th scope="col">Amount</th>
+          <th scope="col"><button type="Delete" name="delete" id="deletebtn">Delete</button></th>
        </tr>
      </thead>
-     <tbody class="table-group-divider">
+     <tbody class="table_body">
        <% historyExpList.forEach(expList => { %>
        <tr>
          <th><p><%= expList.date %></p></th>
          <td><p><%= expList.time %></p></td>
          <td><p><%= expList.tag %></p></td>
          <td><p><%= expList.amount %></p></td>
+         <td>
+           <label><input name="delete" type="checkbox" unchecked></label>
+         </td>
       </tr>
       <% }) %>
      </tbody>
