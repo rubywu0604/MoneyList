@@ -29,7 +29,7 @@ app.set("view engine", "ejs")
 
 app.get("/expenses.html", (request, response) => {
   async function getHistory() {
-    const historyExp = await collectionExp.find({}).sort({date:'desc'}).project({_id:0}).toArray();
+    const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
     console.log('history data from DB', historyExp);
     response.render("expensesView", {
       historyExpList: historyExp,
