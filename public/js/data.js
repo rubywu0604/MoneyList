@@ -19,9 +19,18 @@ document.getElementById('savebtn').onclick = function insertOne(){
       console.log(JSON.parse(options.body), response);
     })
   alert('expense saved!');
-
-  const refreshPage = () => {
-    location.reload();
-  }
-  addEventListener('click', refreshPage)
+  location.reload();
 };
+
+
+function selected() {
+  const checkboxes = document.querySelectorAll("#deleteCheckbox");
+  const checkedValues = [];
+  checkboxes.forEach(function(checkbox) {
+    if (checkbox.checked) {
+      checkedValues.push(checkbox.value);
+    }
+  });
+  console.log(checkedValues);
+  return true;  // NOT prevent the form from submitting
+}
