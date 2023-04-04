@@ -1,22 +1,28 @@
-const express = require('express');
-const app = express();
-const fs = require('fs')
-const port = 8080;
+//Database
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://rubywu0604:Qazj6qup3u60604@clusterml.bpo5zjn.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri);
+const dotenv = require('dotenv');
+dotenv.config();
+const url = process.env.MONGOLAB_URI;
+const client = new MongoClient(url);
 const db = client.db('moneyList');
 const collectionExp = db.collection('expenses');
-const ejs = require('ejs');
 const mongoose = require('mongoose');
-const expSchema  = {
+const expSchema  = new mongoose.Schema({
   date: Date,
   time: String,
   tag: String,
   amount: Number
-}
+})
 const expensesDB = mongoose.model('expenses', expSchema);
 
+//IMPORT
+const express = require('express');
+const app = express();
+const fs = require('fs')
+const port = 8080;
+const ejs = require('ejs');
+
+//MIDDLEWARE
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
 app.use(express.static('/views'));
 app.use(express.static('/public'));
@@ -24,9 +30,9 @@ app.use('/css', express.static(__dirname + '/public/css'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/html', express.static(__dirname + '/public/html'));
 app.use(express.json({limit: '1mb'}));
-
 app.set("view engine", "ejs")
 
+//GET & POST
 app.get("/expenses.html", (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
@@ -58,4 +64,3 @@ run().catch(err => {
   response.json({err: 'Could not create a document.'});
 })
 })
-
