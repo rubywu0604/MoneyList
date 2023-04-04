@@ -64,4 +64,3 @@ run().catch(err => {
   response.json({err: 'Could not create a document.'});
 })
 })
-
