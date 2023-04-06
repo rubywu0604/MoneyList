@@ -54,8 +54,6 @@ app.get("/expenses.html", (request, response) => {
 
 app.post('/expenses.html', (request, response) => {
   const data = request.body;
-  console.log('I got a request!', data);
-
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
   console.log('Data inserted!', insertOne);
@@ -67,13 +65,11 @@ run().catch(err => {
 })
 
 app.delete('/expenses.html', (request, response) => {
-  const selectedId = request.body[0];
-  const query = { _id: new ObjectId(selectedId)};
-  console.log('Delete request!', query);
-
+  const selectedId = request.body.map(e => new ObjectId(e));
+  const query = {_id: { $in: selectedId}};
   async function run() {
-  const deleteMany = await collectionExp.deleteOne(query);
-  console.log('Data deleted!', deleteOne);
+  const deleteMany = await collectionExp.deleteMany(query);
+  console.log('Data deleted!', deleteMany);
   response.json();
 }
 run().catch(err => {
