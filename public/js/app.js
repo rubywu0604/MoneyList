@@ -1,4 +1,4 @@
-//Create data (input button)
+//Create new data (input button)
 document.getElementById('savebtn').onclick = function insertOne(){
   const date = document.getElementById('inputdate').value;
   const time = document.getElementById('inputtime').value;
@@ -21,7 +21,7 @@ document.getElementById('savebtn').onclick = function insertOne(){
   location.reload();
 };
 
-//Select data (checkbox button)
+//Select hisotry data (checkbox button)
 function selected() {
   const checkboxes = document.querySelectorAll("#checkbox");
   const checkedValues = [];
@@ -34,7 +34,7 @@ function selected() {
   return checkedValues;
 }
 
-//Delete database
+//Delete hisotry data (delete button)
 document.getElementById('deletebtn').onclick = function deleteMany(){
   const optionsDel = {
     method: 'DELETE',
@@ -52,3 +52,5 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
   alert('expense deleted!');
   location.reload();
 }
+
+//Edit hisotry data (edit button)
