@@ -32,9 +32,10 @@ document.getElementById('savebtn').onclick = function insertOne(){
 };
 
 //Select hisotry data (checkbox button)
+const checkedValues = [];
+
 function selected() {
   const checkboxes = document.querySelectorAll("#checkbox");
-  const checkedValues = [];
   checkboxes.forEach(function(checkbox) {
     if (checkbox.checked) {
       checkedValues.push(checkbox.value);
@@ -45,6 +46,9 @@ function selected() {
 
 //Delete hisotry data (delete button)
 document.getElementById('deletebtn').onclick = function deleteMany(){
+  if(checkedValues[0] === undefined){
+    alert('Please select at least one expense.')
+  }else{
   const optionsDel = {
     method: 'DELETE',
     headers: {
@@ -59,6 +63,7 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
     })
   alert('expense deleted!');
   location.reload();
+};
 }
 
 //Edit hisotry data (edit button)
