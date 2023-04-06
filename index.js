@@ -1,3 +1,8 @@
+//expenses
+// const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
+//incomes
+// const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+
 //Database
 const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
@@ -33,7 +38,7 @@ app.use('/html', express.static(__dirname + '/public/html'));
 app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs")
 
-//GET & POST
+//history list
 app.get("/expenses.html", (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
@@ -47,11 +52,7 @@ app.get("/expenses.html", (request, response) => {
   })
 })
 
-//expenses
-// const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
-//incomes
-// const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
-
+//insertOne
 app.post('/expenses.html', (request, response) => {
   const data = request.body;
   async function run() {
@@ -64,6 +65,7 @@ run().catch(err => {
 })
 })
 
+//deleteMany
 app.delete('/expenses.html', (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};

@@ -5,6 +5,15 @@ document.getElementById('savebtn').onclick = function insertOne(){
   const tag = document.getElementById('inputtag').value.toString();
   const amount = parseInt(document.getElementById('inputamount').value);
   const data = {date, time, tag, amount};
+  if(data.date === ''){
+    alert('Please select the <Date>');
+  }else if(data.time === ''){
+    alert('Please select the <Time>');
+  }else if(data.tag === ''){
+    alert('Please input the <Tag>');
+  }else if(data.amount === 0){
+    alert('Please input the <Amount> greater than 0');
+  }else{
   const options = { // package data as a POST
     method: 'POST',
     headers: {
@@ -20,6 +29,7 @@ document.getElementById('savebtn').onclick = function insertOne(){
   alert('expense saved!');
   location.reload();
 };
+};
 
 //Select hisotry data (checkbox button)
 function selected() {
@@ -30,7 +40,6 @@ function selected() {
       checkedValues.push(checkbox.value);
     }
   });
-  console.log('selected:', checkedValues);
   return checkedValues;
 }
 
@@ -43,7 +52,6 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
     },
     body: JSON.stringify(selected())
   }
-  console.log('select to delete: ', optionsDel.body);
 
   fetch('/expenses.html', optionsDel)
     .then(response => {
