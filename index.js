@@ -1,3 +1,8 @@
+//expenses
+// const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
+//incomes
+// const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+
 //Database
 const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
@@ -14,6 +19,7 @@ const expSchema  = new mongoose.Schema({
   amount: Number
 })
 const expensesDB = mongoose.model('expenses', expSchema);
+const ObjectId = require('mongodb').ObjectId;
 
 //IMPORT
 const express = require('express');
@@ -32,11 +38,11 @@ app.use('/html', express.static(__dirname + '/public/html'));
 app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs")
 
-//GET & POST
+//history list
 app.get("/expenses.html", (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
-    console.log('history data from DB', historyExp);
+    // console.log('history data from DB', historyExp);
     response.render("expensesView", {
       historyExpList: historyExp,
     })
@@ -46,18 +52,26 @@ app.get("/expenses.html", (request, response) => {
   })
 })
 
-//expenses
-// const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
-//incomes
-// const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
-
+//insertOne
 app.post('/expenses.html', (request, response) => {
   const data = request.body;
-  console.log('I got a request!', data);
-
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
   console.log('Data inserted!', insertOne);
+  response.json();
+}
+run().catch(err => {
+  response.json({err: 'Could not create a document.'});
+})
+})
+
+//deleteMany
+app.delete('/expenses.html', (request, response) => {
+  const selectedId = request.body.map(e => new ObjectId(e));
+  const query = {_id: { $in: selectedId}};
+  async function run() {
+  const deleteMany = await collectionExp.deleteMany(query);
+  console.log('Data deleted!', deleteMany);
   response.json();
 }
 run().catch(err => {
