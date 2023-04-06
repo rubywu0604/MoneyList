@@ -14,6 +14,7 @@ const expSchema  = new mongoose.Schema({
   amount: Number
 })
 const expensesDB = mongoose.model('expenses', expSchema);
+const ObjectId = require('mongodb').ObjectId;
 
 //IMPORT
 const express = require('express');
@@ -36,7 +37,7 @@ app.set("view engine", "ejs")
 app.get("/expenses.html", (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
-    console.log('history data from DB', historyExp);
+    // console.log('history data from DB', historyExp);
     response.render("expensesView", {
       historyExpList: historyExp,
     })
@@ -58,6 +59,21 @@ app.post('/expenses.html', (request, response) => {
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
   console.log('Data inserted!', insertOne);
+  response.json();
+}
+run().catch(err => {
+  response.json({err: 'Could not create a document.'});
+})
+})
+
+app.delete('/expenses.html', (request, response) => {
+  const selectedId = request.body[0];
+  const query = { _id: new ObjectId(selectedId)};
+  console.log('Delete request!', query);
+
+  async function run() {
+  const deleteMany = await collectionExp.deleteOne(query);
+  console.log('Data deleted!', deleteOne);
   response.json();
 }
 run().catch(err => {
