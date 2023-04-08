@@ -11,14 +11,16 @@ const url = process.env.MONGOLAB_URI;
 const client = new MongoClient(url);
 const db = client.db('moneyList');
 const collectionExp = db.collection('expenses');
+const collectionInc = db.collection('incomes');
 const mongoose = require('mongoose');
-const expSchema  = new mongoose.Schema({
+const Schema  = new mongoose.Schema({
   date: Date,
   time: String,
   tag: String,
   amount: Number
 })
-const expensesDB = mongoose.model('expenses', expSchema);
+const expensesDB = mongoose.model('expenses', Schema);
+const incomesDB = mongoose.model('incomes', Schema);
 const ObjectId = require('mongodb').ObjectId;
 
 //IMPORT
@@ -52,12 +54,36 @@ app.get("/expenses.html", (request, response) => {
   })
 })
 
+app.get("/incomes.html", (request, response) => {
+  async function getHistory() {
+    const historyInc = await collectionInc.find({}).sort({date:'desc'}).toArray();
+    response.render("incomesView", {
+      historyIncList: historyInc,
+    })
+  }
+  getHistory().catch(err => {
+    response.json({err: 'Could not create a document.'});
+  })
+})
+
 //insertOne
 app.post('/expenses.html', (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
-  console.log('Data inserted!', insertOne);
+  console.log('Expense Data inserted!', insertOne);
+  response.json();
+}
+run().catch(err => {
+  response.json({err: 'Could not create a document.'});
+})
+})
+
+app.post('/incomes.html', (request, response) => {
+  const data = request.body;
+  async function run() {
+  const insertOne = await collectionInc.insertOne(data);
+  console.log('Income Data inserted!', insertOne);
   response.json();
 }
 run().catch(err => {
@@ -71,7 +97,20 @@ app.delete('/expenses.html', (request, response) => {
   const query = {_id: { $in: selectedId}};
   async function run() {
   const deleteMany = await collectionExp.deleteMany(query);
-  console.log('Data deleted!', deleteMany);
+  console.log('Expense Data deleted!', deleteMany);
+  response.json();
+}
+run().catch(err => {
+  response.json({err: 'Could not create a document.'});
+})
+})
+
+app.delete('/incomes.html', (request, response) => {
+  const selectedId = request.body.map(e => new ObjectId(e));
+  const query = {_id: { $in: selectedId}};
+  async function run() {
+  const deleteMany = await collectionInc.deleteMany(query);
+  console.log('Income Data deleted!', deleteMany);
   response.json();
 }
 run().catch(err => {
