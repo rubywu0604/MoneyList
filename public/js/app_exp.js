@@ -32,21 +32,23 @@ document.getElementById('savebtn').onclick = function insertOne(){
 };
 
 //Select hisotry data (checkbox button)
-const checkedValues = [];
+const checkedValuesExp = [];
 
-function selected() {
-  const checkboxes = document.querySelectorAll("#checkbox");
-  checkboxes.forEach(function(checkbox) {
-    if (checkbox.checked) {
-      checkedValues.push(checkbox.value);
+function selectedExp() {
+  const checkboxes_exp = document.querySelectorAll(".checkbox_exp");
+  checkedValuesExp.length = 0; // clear the array before re-populating it
+  checkboxes_exp.forEach(function(checkbox_exp) {
+    if (checkbox_exp.checked) {
+      checkedValuesExp.push(checkbox_exp.value);
     }
   });
-  return checkedValues;
+  console.log(checkedValuesExp);
+  return checkedValuesExp;
 }
 
 //Delete hisotry data (delete button)
 document.getElementById('deletebtn').onclick = function deleteMany(){
-  if(checkedValues[0] === undefined){
+  if(checkedValuesExp[0] === undefined){
     alert('Please select at least one expense.')
   }else{
   const optionsDel = {
@@ -54,7 +56,7 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(selected())
+    body: JSON.stringify(selectedExp())
   }
 
   fetch('/expenses.html', optionsDel)
