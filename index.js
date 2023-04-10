@@ -1,7 +1,8 @@
 //expenses
-const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
+const expurl = 'https://rubywu0604.github.io/MoneyList/public/html/expenses.html';
 //incomes
-const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+const incurl = 'https://rubywu0604.github.io/MoneyList/public/html/incomes.html';
+
 
 //Database
 const { MongoClient } = require('mongodb');
