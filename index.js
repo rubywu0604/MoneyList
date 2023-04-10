@@ -41,7 +41,7 @@ app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs")
 
 //history list
-app.get('/expensesView', (request, response) => {
+app.get('/expenses.html', (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
     // console.log('history data from DB', historyExp);
@@ -54,7 +54,7 @@ app.get('/expensesView', (request, response) => {
   })
 })
 
-app.get('/incomesView', (request, response) => {
+app.get('/incomes.html', (request, response) => {
   async function getHistory() {
     const historyInc = await collectionInc.find({}).sort({date:'desc'}).toArray();
     response.render("incomesView", {
@@ -67,7 +67,7 @@ app.get('/incomesView', (request, response) => {
 })
 
 //insertOne
-app.post('/expensesView', (request, response) => {
+app.post('/expenses.html', (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
@@ -79,7 +79,7 @@ run().catch(err => {
 })
 })
 
-app.post('/incomesView', (request, response) => {
+app.post('/incomes.html', (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionInc.insertOne(data);
@@ -92,7 +92,7 @@ run().catch(err => {
 })
 
 //deleteMany
-app.delete('/expensesView', (request, response) => {
+app.delete('/expenses.html', (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
@@ -105,7 +105,7 @@ run().catch(err => {
 })
 })
 
-app.delete('/incomesView', (request, response) => {
+app.delete('/incomes.html', (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
