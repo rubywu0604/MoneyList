@@ -6,40 +6,40 @@
     <title>Incomes</title>
   </head>
   <body>
-    <header>
+    <header class="header">
       <ul>
         <li><a href="expenses.html">Expenses</a></li>
         <li><a href="incomes.html">Incomes</a></li>
       </ul>
-      <h1>Incomes</h1>
+      <h1 class="title">My Money List<span class="title_name">Incomes</span></h1>
     </header>
 
     <section>
-      <h3>Add New incomes</h3>
-      <ul class="NewInc">
+      <h3 class="add_new">Add New income</h3>
+      <ul>
         <span>Date/Time</span>
-          <input type="date" name="date" id="inputdate_Inc">
-          <input type="time" name="time" id="inputtime_Inc">
+          <input type="date" name="date" id="inputdate" class="inputdate">
+          <input type="time" name="time" id="inputtime" class="inputtime">
         <span>Tag</span>
-          <input type="text" name="tag" id="inputtag_Inc">
+          <input type="text" name="tag" id="inputtag" class="inputtag">
         <span>Amount</span>
-          <input type="number" name="amount" id="inputamount_Inc">
-        <button type="Save" name="save" id="savebtn_Inc">Save</button>
+          <input type="number" name="amount" id="inputamount" class="inputamount">
+        <button type="Save" name="save" id="savebtn" class="savebtn">Save</button>
       </ul>
     </section>
 
     <footer>
-      <h3>Incomes List</h3>
+      <h3 class="history_list">Incomes List</h3>
       <table class="table">
-      <thead>
+      <thead class="table_head">
         <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Time</th>
-          <th scope="col">Tag</th>
-          <th scope="col">Amount</th>
-          <th scope="col">
-            <button type='delete' name="delete" id="deletebtn_Inc">Delete</button>
-            <button type='edit' name="edit" id="editbtn_Inc">Edit</button>
+          <th scope="col" class="th_date">Date</th>
+          <th scope="col" class="th_time">Time</th>
+          <th scope="col" class="th_tag">Tag</th>
+          <th scope="col" class="th_amount">Amount</th>
+          <th scope="col" class="th_btn">
+            <button type='delete' name="delete" id="deletebtn" class="deletebtn">Delete</button>
+            <button type='edit' name="edit" id="editbtn" class="editbtn">Edit</button>
             <script src="/js/app_inc.js" type="text/javascript"></script>
           </th>
        </tr>
@@ -47,12 +47,12 @@
      <tbody class="table_body">
        <% historyIncList.forEach(incList => { %>
        <tr>
-         <th><p><%= incList.date %></p></th>
-         <td><p><%= incList.time %></p></td>
-         <td><p><%= incList.tag %></p></td>
-         <td><p><%= incList.amount %></p></td>
+         <td class="tb_date"><p><%= incList.date %></p></td>
+         <td class="tb_time"><p><%= incList.time %></p></td>
+         <td class="tb_tag"><p><%= incList.tag %></p></td>
+         <td class="tb_amount"><p><%= incList.amount %></p></td>
          <td>
-           <input id="checkbox_Inc" type="checkbox" value="<%= incList._id %>" onclick="selectedInc()" unchecked>
+           <input class="checkbox_inc" type="checkbox" value="<%= incList._id %>" onclick="selectedInc()" unchecked>
          </td>
       </tr>
       <% }) %>
