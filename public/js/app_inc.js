@@ -1,9 +1,9 @@
 //Create new data (input button)
-document.getElementById('savebtn_Inc').onclick = function insertOne(){
-  const date = document.getElementById('inputdate_Inc').value;
-  const time = document.getElementById('inputtime_Inc').value;
-  const tag = document.getElementById('inputtag_Inc').value.toString();
-  const amount = parseInt(document.getElementById('inputamount_Inc').value);
+document.getElementById('savebtn').onclick = function insertOne(){
+  const date = document.getElementById('inputdate').value;
+  const time = document.getElementById('inputtime').value;
+  const tag = document.getElementById('inputtag').value.toString();
+  const amount = parseInt(document.getElementById('inputamount').value);
   const data = {date, time, tag, amount};
   if(data.date === ''){
     alert('Please select the <Date>');
@@ -47,7 +47,7 @@ function selectedInc() {
 }
 
 //Delete hisotry data (delete button)
-document.getElementById('deletebtn_Inc').onclick = function deleteMany(){
+document.getElementById('deletebtn').onclick = function deleteMany(){
   if(checkedValuesInc[0] === undefined){
     alert('Please select at least one income.')
   }else{
