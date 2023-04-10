@@ -1,7 +1,7 @@
 //expenses
-// const expurl = 'https://rubywu0604.github.io/MoneyList/public/expenses.html';
+const expurl = 'https://rubywu0604.github.io/MoneyList/public/html/expenses.html';
 //incomes
-// const incurl = 'https://rubywu0604.github.io/MoneyList/public/incomes.html';
+const incurl = 'https://rubywu0604.github.io/MoneyList/public/html/incomes.html';
 
 //Database
 const { MongoClient } = require('mongodb');
@@ -41,7 +41,7 @@ app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs")
 
 //history list
-app.get("/expenses.html", (request, response) => {
+app.get(expurl, (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
     // console.log('history data from DB', historyExp);
@@ -54,7 +54,7 @@ app.get("/expenses.html", (request, response) => {
   })
 })
 
-app.get("/incomes.html", (request, response) => {
+app.get(incurl, (request, response) => {
   async function getHistory() {
     const historyInc = await collectionInc.find({}).sort({date:'desc'}).toArray();
     response.render("incomesView", {
@@ -67,7 +67,7 @@ app.get("/incomes.html", (request, response) => {
 })
 
 //insertOne
-app.post('/expenses.html', (request, response) => {
+app.post(expurl, (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
@@ -79,7 +79,7 @@ run().catch(err => {
 })
 })
 
-app.post('/incomes.html', (request, response) => {
+app.post(incurl, (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionInc.insertOne(data);
@@ -92,7 +92,7 @@ run().catch(err => {
 })
 
 //deleteMany
-app.delete('/expenses.html', (request, response) => {
+app.delete(expurl, (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
@@ -105,7 +105,7 @@ run().catch(err => {
 })
 })
 
-app.delete('/incomes.html', (request, response) => {
+app.delete(incurl, (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
