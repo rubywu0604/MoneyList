@@ -22,7 +22,7 @@ document.getElementById('savebtn').onclick = function insertOne(){
     body: JSON.stringify(data) //put data into javascript object
   };
 
-  fetch('/expenses.html', options)
+  fetch('/expensesView', options)
     .then(response => {
       console.log(JSON.parse(options.body), response);
     })
@@ -59,7 +59,7 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
     body: JSON.stringify(selectedExp())
   }
 
-  fetch('/expenses.html', optionsDel)
+  fetch('/expensesView', optionsDel)
     .then(response => {
       console.log(JSON.parse(optionsDel.body), response);
     })
