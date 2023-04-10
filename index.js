@@ -27,7 +27,7 @@ const ObjectId = require('mongodb').ObjectId;
 const express = require('express');
 const app = express();
 const fs = require('fs')
-const port = 8080;
+const port = process.env.PORT || 8080;
 const ejs = require('ejs');
 
 //MIDDLEWARE
