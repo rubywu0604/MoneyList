@@ -21,7 +21,7 @@ document.getElementById('savebtn').onclick = function insertOne(){
     },
     body: JSON.stringify(data) //put data into javascript object
   };
-
+  
   fetch('/incomes.html', options)
     .then(response => {
       console.log(JSON.parse(options.body), response);

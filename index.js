@@ -39,7 +39,6 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/html', express.static(__dirname + '/public/html'));
 app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs")
-
 //history list
 app.get('/expenses.html', (request, response) => {
   async function getHistory() {
