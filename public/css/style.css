@@ -172,21 +172,21 @@ footer {
 
 
 .th_btn .deletebtn {
-  background-color: #e74c3c;
-  color: #FFFFFF;
+  background-color: #45C48D;
+  color: #fff;
 }
 
 .th_btn .deletebtn:hover {
-  background-color: #c0392b;
+  background-color: #148f77;
 }
 
 .th_btn .editbtn {
-  background-color: #F2E05D;
-  color: #5A5353;
+  background-color: #45C48D;
+  color: #fff;
 }
 
 .th_btn .editbtn:hover {
-  background-color: #BBBE0E;
+  background-color: #148f77;
 }
 
 tr:nth-child(even) {
