@@ -11,7 +11,7 @@ document.getElementById('savebtn').onclick = function insertOne(){
     alert('Please select the <Time>');
   }else if(data.tag === ''){
     alert('Please input the <Tag>');
-  }else if(data.amount === 0){
+  }else if(data.amount <= 0){
     alert('Please input the <Amount> greater than 0');
   }else{
   const options = { // package data as a POST
@@ -21,7 +21,7 @@ document.getElementById('savebtn').onclick = function insertOne(){
     },
     body: JSON.stringify(data) //put data into javascript object
   };
-  
+
   fetch('/incomes.html', options)
     .then(response => {
       console.log(JSON.parse(options.body), response);
