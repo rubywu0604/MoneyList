@@ -27,18 +27,18 @@ const ObjectId = require('mongodb').ObjectId;
 const express = require('express');
 const app = express();
 const fs = require('fs')
-const port = 8080;
+const port = process.env.PORT || 8080;
 const ejs = require('ejs');
 
 //MIDDLEWARE
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
 app.use(express.static('/views'));
 app.use(express.static('/public'));
-app.use('/css', express.static(__dirname + '/public/css'));
-app.use('/js', express.static(__dirname + '/public/js'));
-app.use('/html', express.static(__dirname + '/public/html'));
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/', express.static(__dirname + '/'));
 app.use(express.json({limit: '1mb'}));
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
+
 //history list
 app.get('/expenses.html', (request, response) => {
   async function getHistory() {
