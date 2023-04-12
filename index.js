@@ -14,10 +14,10 @@ const collectionExp = db.collection('expenses');
 const collectionInc = db.collection('incomes');
 const mongoose = require('mongoose');
 const Schema  = new mongoose.Schema({
-  date: Date,
-  time: String,
-  tag: String,
-  amount: Number
+  date: { type: Date, required: true },
+  time: { type: String, required: true },
+  tag: { type: String, required: true },
+  amount: { type: Number, required: true }
 })
 const expensesDB = mongoose.model('expenses', Schema);
 const incomesDB = mongoose.model('incomes', Schema);
