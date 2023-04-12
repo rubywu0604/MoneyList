@@ -1,4 +1,4 @@
-# fly.toml file generated for moneylist on 2023-04-12T13:06:12+08:00
+# fly.toml file generated for moneylist on 2023-04-12T13:29:21+08:00
 
 app = "moneylist"
 kill_timeout = 0

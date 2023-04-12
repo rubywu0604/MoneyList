@@ -14,13 +14,14 @@ const collectionExp = db.collection('expenses');
 const collectionInc = db.collection('incomes');
 const mongoose = require('mongoose');
 const Schema  = new mongoose.Schema({
-  date: { type: Date, required: true },
-  time: { type: String, required: true },
-  tag: { type: String, required: true },
-  amount: { type: Number, required: true }
+  date: Date,
+  time: String,
+  tag: String,
+  amount: Number
 })
-const expensesDB = mongoose.model('expenses', Schema);
-const incomesDB = mongoose.model('incomes', Schema);
+
+mongoose.model('expenses', Schema);
+mongoose.model('incomes', Schema);
 const ObjectId = require('mongodb').ObjectId;
 
 //IMPORT
