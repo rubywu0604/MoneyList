@@ -1,0 +1,5 @@
+# fly.toml file generated for moneylist on 2023-04-12T13:33:55+08:00
+
+app = "moneylist"
+kill_timeout = 0
+primary_region = "nrt"

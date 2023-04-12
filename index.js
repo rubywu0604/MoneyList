@@ -1,34 +1,44 @@
-// //expenses
-// const expurl = 'https://rubywu0604.github.io/MoneyList/public/html/expensesView';
-// //incomes
-// const incurl = 'https://rubywu0604.github.io/MoneyList/public/html/incomesView';
-
-//Database
-const { MongoClient } = require('mongodb');
-const dotenv = require('dotenv');
-dotenv.config();
-const url = process.env.MONGOLAB_URI;
-const client = new MongoClient(url);
-const db = client.db('moneyList');
-const collectionExp = db.collection('expenses');
-const collectionInc = db.collection('incomes');
-const mongoose = require('mongoose');
-const Schema  = new mongoose.Schema({
-  date: Date,
-  time: String,
-  tag: String,
-  amount: Number
-})
-const expensesDB = mongoose.model('expenses', Schema);
-const incomesDB = mongoose.model('incomes', Schema);
-const ObjectId = require('mongodb').ObjectId;
-
 //IMPORT
 const express = require('express');
 const app = express();
 const fs = require('fs')
 const port = process.env.PORT || 8080;
 const ejs = require('ejs');
+const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const url = process.env.MONGOLAB_URI;
+const client = new MongoClient(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+// connect to MongoDB server
+client.connect((err) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+
+  console.log('Connected to MongoDB server.');
+});
+
+//setting collection and schema
+const db = client.db('moneyList');
+const collectionExp = db.collection('expenses');
+const collectionInc = db.collection('incomes');
+const Schema = new mongoose.Schema({
+  date: Date,
+  time: String,
+  tag: String,
+  amount: Number,
+});
+
+const expensesDB = mongoose.model('expenses', Schema);
+const incomesDB = mongoose.model('incomes', Schema);
+const ObjectId = require('mongodb').ObjectId;
 
 //MIDDLEWARE
 app.listen(port, () => {console.log(`listen on the port ${port}`)});
