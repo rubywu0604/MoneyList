@@ -16,7 +16,7 @@ document.getElementById('loginbtn').onclick = function signup(){
       body: JSON.stringify(userData) //put data into javascript object
     };
 
-    fetch('/index.html', options)
+    fetch('/', options)
       .then(response => {
         console.log(response);
         return response.json();

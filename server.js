@@ -114,7 +114,7 @@ app.post('/signup.html', (request, response) => {
    })
 })
 
-app.post('/index.html', (request, response) => {
+app.post('/', (request, response) => {
   const userData = request.body;
   async function run() {
       const check = await collectionUser.findOne({userId: userData.userId, userPassword: userData.userPassword});
