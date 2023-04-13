@@ -21,7 +21,6 @@ client.connect((err) => {
     console.error(err);
     process.exit(1);
   }
-
   console.log('Connected to MongoDB server.');
 });
 
@@ -29,6 +28,7 @@ client.connect((err) => {
 const db = client.db('moneyList');
 const collectionExp = db.collection('expenses');
 const collectionInc = db.collection('incomes');
+const collectionUser = db.collection('user');
 const Schema = new mongoose.Schema({
   date: Date,
   time: String,
@@ -36,6 +36,22 @@ const Schema = new mongoose.Schema({
   amount: Number,
 });
 
+const userSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  }
+});
+
+const userDB = mongoose.model('user', userSchema);
 const expensesDB = mongoose.model('expenses', Schema);
 const incomesDB = mongoose.model('incomes', Schema);
 const ObjectId = require('mongodb').ObjectId;
@@ -77,6 +93,25 @@ app.get('/incomes.html', (request, response) => {
   getHistory().catch(err => {
     response.json({err: 'Could not create a document.'});
   })
+})
+
+//Signup and Login
+app.post('/signup.html', (request, response) => {
+  const userData = request.body;
+  async function run() {
+      const check = await collectionUser.findOne({userId: userData.userId});
+      if(check){
+        response.json('exist');
+      }else{
+        const insertUser = await collectionUser.insertOne(userData);
+        console.log('New User Data inserted!', insertUser);
+        response.json('notexist');
+      }
+   }
+   run().catch(err => {
+     console.log(err);
+     response.json('notexist');
+   })
 })
 
 //insertOne
