@@ -49,7 +49,11 @@ app.use('/', express.static(__dirname + '/'));
 app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs");
 
-//history list
+//get page
+app.get('/signup.html', (request, response) => {
+  response.render('signupView');
+})
+
 app.get('/expenses.html', (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
