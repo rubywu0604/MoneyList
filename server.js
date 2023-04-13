@@ -114,6 +114,23 @@ app.post('/signup.html', (request, response) => {
    })
 })
 
+app.post('/index.html', (request, response) => {
+  const userData = request.body;
+  async function run() {
+      const check = await collectionUser.findOne({userId: userData.userId, userPassword: userData.userPassword});
+      if(check){
+        response.json('match');
+      }else{
+        console.log('Error Login.');
+        response.json('notmatch');
+      }
+   }
+   run().catch(err => {
+     console.log(err);
+     response.json('notexist');
+   })
+})
+
 //insertOne
 app.post('/expenses.html', (request, response) => {
   const data = request.body;
