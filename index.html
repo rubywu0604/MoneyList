@@ -3,23 +3,32 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="/public/style.css">
-    <title>Home</title>
+    <title>Login</title>
   </head>
   <body>
     <header class="header">
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/expenses.html">Expenses</a></li>
-        <li><a href="/incomes.html">Incomes</a></li>
+        <li class="page_title">Login Page</li>
       </ul>
-      <h1 class="title">My Money List<span class="title_name">Home</span></h1>
+      <h1 class="title">My Money List<span class="title_name">Login</span></h1>
     </header>
-
     <section>
-
+      <h2 class="sec_title">Login</h2>
+      <ul>
+        <span>User Id</span>
+        <input type="text" name="login_id" id="login_id">
+        <span>Password</span>
+        <input type="password" name="login_password" id="login_password">
+        <button type="submit" name="login_submit" class="submitbtn">Submit</button>
+      </ul>
     </section>
-    <footer>
-
+    <footer class="outpage_footer">
+      <ul>
+        <span>Don't have an account?</span>
+        <li>
+          <a href="/signup.html">Signup</a>
+        </li>
+      </ul>
     </footer>
   </body>
 </html>
