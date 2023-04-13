@@ -34,24 +34,12 @@ const Schema = new mongoose.Schema({
   time: String,
   tag: String,
   amount: Number,
+  userId: String,
+  password: String,
+  email: String,
 });
 
-const userSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  }
-});
-
-const userDB = mongoose.model('user', userSchema);
+const userDB = mongoose.model('user', Schema);
 const expensesDB = mongoose.model('expenses', Schema);
 const incomesDB = mongoose.model('incomes', Schema);
 const ObjectId = require('mongodb').ObjectId;
@@ -68,6 +56,9 @@ app.set("view engine", "ejs");
 //get page
 app.get('/signup.html', (request, response) => {
   response.render('signupView');
+})
+app.get('/', (request, response) => {
+  response.render('loginView');
 })
 
 app.get('/expenses.html', (request, response) => {
@@ -106,6 +97,23 @@ app.post('/signup.html', (request, response) => {
         const insertUser = await collectionUser.insertOne(userData);
         console.log('New User Data inserted!', insertUser);
         response.json('notexist');
+      }
+   }
+   run().catch(err => {
+     console.log(err);
+     response.json('notexist');
+   })
+})
+
+app.post('/', (request, response) => {
+  const userData = request.body;
+  async function run() {
+      const check = await collectionUser.findOne({userId: userData.userId, userPassword: userData.userPassword});
+      if(check){
+        response.json('match');
+      }else{
+        console.log('Error Login.');
+        response.json('notmatch');
       }
    }
    run().catch(err => {
