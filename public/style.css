@@ -65,6 +65,13 @@ body {
   color: #FFFFFF;
 }
 
+.page_title {
+  font-size: 36px;
+  font-family: fantasy;
+  font-weight: normal;
+  color: #FFFFFF;
+}
+
 
 /* Section styles */
 section {
@@ -74,7 +81,7 @@ section {
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
-.add_new {
+.sec_title {
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -94,7 +101,8 @@ span {
 input[type="date"],
 input[type="time"],
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="password"] {
   padding: 10px;
   border: none;
   border-radius: 4px;
@@ -105,12 +113,14 @@ input[type="number"] {
 input[type="date"]:focus,
 input[type="time"]:focus,
 input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+input[type="password"]:focus {
   outline: none;
   box-shadow: 0 0 10px #1abc9c;
 }
 
-.savebtn {
+.savebtn,
+.submitbtn {
   background-color: #45C48D;
   color: #fff;
   padding: 10px 20px;
@@ -192,3 +202,38 @@ footer {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.outpage_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0B99BF;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.outpage_footer ul {
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.outpage_footer span{
+  display: inline-block;
+  margin-right: 20px;
+  color: #FFFFFF;
+}
+
+.outpage_footer a {
+  font-size: 20px;
+  color: #FFFFFF;
+  text-decoration: overline;
+}
+
+.outpage_footer li :hover {
+  color: #90F2FE;
+  text-decoration: underline;
+}
+
