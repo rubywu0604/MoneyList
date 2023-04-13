@@ -34,24 +34,12 @@ const Schema = new mongoose.Schema({
   time: String,
   tag: String,
   amount: Number,
+  userId: String,
+  password: String,
+  email: String,
 });
 
-const userSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  }
-});
-
-const userDB = mongoose.model('user', userSchema);
+const userDB = mongoose.model('user', Schema);
 const expensesDB = mongoose.model('expenses', Schema);
 const incomesDB = mongoose.model('incomes', Schema);
 const ObjectId = require('mongodb').ObjectId;
