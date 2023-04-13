@@ -69,6 +69,9 @@ app.set("view engine", "ejs");
 app.get('/signup.html', (request, response) => {
   response.render('signupView');
 })
+app.get('/', (request, response) => {
+  response.render('loginView');
+})
 
 app.get('/expenses.html', (request, response) => {
   async function getHistory() {
