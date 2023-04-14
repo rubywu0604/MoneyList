@@ -4,12 +4,15 @@ document.getElementById('signupbtn').onclick = function signup(){
   const userPassword = document.getElementById('signup_password').value;
   const userEmail = document.getElementById('signup_email').value;
   const userData = {userId, userPassword, userEmail};
+
+  const emailRegex = /^(?:[a-zA-Z0-9._%+-]+@(?:gmail\.com|yahoo\.com|yahoo\.com\.tw))$/; // regular expression for email validation
+
   if(userData.userId === ''){
     alert('Please set the <User Id>');
   }else if(userData.userPassword === ''){
     alert('Please set the <Password>');
-  }else if(userData.userEmail === ''){
-    alert('Please input the valid <Email Address>');
+  }else if(userData.userEmail === '' || !emailRegex.test(userData.userEmail)){
+    alert('Please input a valid <Email Address>');
   }else{
     const options = { // package data as a POST
       method: 'POST',
