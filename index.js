@@ -5,6 +5,7 @@ const fs = require('fs')
 const port = process.env.PORT || 8080;
 const ejs = require('ejs');
 const { MongoClient } = require('mongodb');
+const { sendEmail } = require('./sent_mail.js');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -36,7 +37,7 @@ const Schema = new mongoose.Schema({
   amount: Number,
   userId: String,
   password: String,
-  email: String,
+  userEmail: String,
 });
 
 const userDB = mongoose.model('user', Schema);
@@ -96,6 +97,12 @@ app.post('/signup.html', (request, response) => {
       }else{
         const insertUser = await collectionUser.insertOne(userData);
         console.log('New User Data inserted!', insertUser);
+
+        // Send welcome email to new user
+        if (userData.userEmail) {
+          sendEmail(userData.userEmail, 'Welcome to My Money List!', `Hi, ${userData.userId}. Thank you for signing up for "My Money List".`);
+        }
+
         response.json('notexist');
       }
    }
