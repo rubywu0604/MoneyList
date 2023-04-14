@@ -1,36 +1,44 @@
 //Verify user (login button)
-document.getElementById('loginbtn').onclick = function signup(){
+document.getElementById('loginbtn').onclick = function signup() {
   const userId = document.getElementById('login_id').value;
   const userPassword = document.getElementById('login_password').value;
   const userData = {userId, userPassword};
-  if(userData.userId === ''){
-    alert('Please input the <User Id>');
-  }else if(userData.userPassword === ''){
-    alert('Please input the <Password>');
-  }else{
-    const options = { // package data as a POST
+  if(userData.userId === '') {
+    alert('Please input the User Id');
+  } else if(userData.userPassword === '') {
+    alert('Please input the Password');
+  } else {
+    const options = {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify(userData) //put data into javascript object
+      body: JSON.stringify(userData)
     };
-
     fetch('/', options)
       .then(response => {
-        console.log(response);
-        return response.json();
-      })
-      .then(data => {
-        if (data === 'match') {
-          alert('Login successfully!');
-          window.location.href = '/expenses.html';
+        if(response.ok) {
+          return response.json();
+        } else if(response.status === 404) {
+          throw new Error('User not found');
+        } else if(response.status === 401) {
+          throw new Error('Incorrect password');
         } else {
-          alert('Incorrect!');
+          throw new Error('Internal server error');
         }
       })
+      .then(data => {
+        window.location.href = '/expenses.html';
+      })
       .catch(error => {
-        console.log(error);
+        if(error.message === 'User not found') {
+          alert('Id Incorrect!');
+        } else if(error.message === 'Incorrect password') {
+          alert('Password Incorrect!');
+        } else {
+          console.log(error);
+          alert('An error occurred. Please try again later.');
+        }
       });
   }
 };
