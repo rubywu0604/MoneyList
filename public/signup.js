@@ -28,7 +28,6 @@ document.getElementById('signupbtn').onclick = function signup(){
         if (data === 'exist') {
           alert('User already exists!');
         } else {
-          alert('Signup successfully!');
           window.location.href = '/expenses.html';
         }
       })
