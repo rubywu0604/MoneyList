@@ -31,13 +31,34 @@ const collectionExp = db.collection('expenses');
 const collectionInc = db.collection('incomes');
 const collectionUser = db.collection('user');
 const Schema = new mongoose.Schema({
-  date: Date,
-  time: String,
-  tag: String,
-  amount: Number,
-  userId: String,
-  password: String,
-  userEmail: String,
+  date: {
+    type: Date,
+    required: true
+  },
+  time: {
+    type: String,
+    required: true
+  },
+  tag: {
+    type: String,
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  userId: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  userEmail: {
+    type: String,
+    required: true
+  },
 });
 
 const userDB = mongoose.model('user', Schema);
