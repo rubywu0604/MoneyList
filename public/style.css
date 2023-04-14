@@ -96,6 +96,11 @@ span {
   display: block;
   font-size: 16px;
   margin-bottom: 10px;
+  font-weight: bold;
+}
+
+p {
+  color: #717178;
 }
 
 input[type="date"],
