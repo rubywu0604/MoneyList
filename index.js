@@ -108,19 +108,29 @@ app.post('/signup.html', (request, response) => {
 app.post('/', (request, response) => {
   const userData = request.body;
   async function run() {
-      const check = await collectionUser.findOne({userId: userData.userId, userPassword: userData.userPassword});
-      if(check){
-        response.json('match');
-      }else{
-        console.log('Error Login.');
-        response.json('notmatch');
+    try {
+      const user = await collectionUser.findOne({userId: userData.userId});
+      if(!user) {
+        throw new Error('User not found');
       }
-   }
-   run().catch(err => {
-     console.log(err);
-     response.json('notexist');
-   })
+      if(user.userPassword !== userData.userPassword) {
+        throw new Error('Incorrect password');
+      }
+      response.json('match');
+    } catch(err) {
+      console.log(err);
+      if(err.message === 'User not found') {
+        response.status(404).json({error: 'User not found'});
+      } else if(err.message === 'Incorrect password') {
+        response.status(401).json({error: 'Incorrect password'});
+      } else {
+        response.status(500).json({error: 'Internal server error'});
+      }
+    }
+  }
+  run();
 })
+
 
 //insertOne
 app.post('/expenses.html', (request, response) => {

@@ -26,7 +26,6 @@ document.getElementById('savebtn').onclick = function insertOne(){
     .then(response => {
       console.log(JSON.parse(options.body), response);
     })
-  alert('income saved!');
   location.reload();
 };
 };
@@ -63,7 +62,6 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
     .then(response => {
       console.log(JSON.parse(optionsDel.body), response);
     })
-  alert('income deleted!');
   location.reload();
 };
 }
