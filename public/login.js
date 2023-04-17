@@ -28,7 +28,7 @@ document.getElementById('loginbtn').onclick = function login() {
         }
       })
       .then(data => {
-        window.location.href = '/expenses';
+        window.location.href = `/expenses/${userId}`;
       })
       .catch(error => {
         if(error.message === 'User not found') {
