@@ -22,7 +22,7 @@ document.getElementById('signupbtn').onclick = function signup(){
       body: JSON.stringify(userData) //put data into javascript object
     };
 
-    fetch('/signup.html', options)
+    fetch('/signup', options)
       .then(response => {
         console.log(response);
         return response.json();
@@ -31,7 +31,7 @@ document.getElementById('signupbtn').onclick = function signup(){
         if (data === 'exist') {
           alert('User already exists!');
         } else {
-          window.location.href = '/expenses';
+          window.location.href = `/expenses/${userId}`;
         }
       })
       .catch(error => {

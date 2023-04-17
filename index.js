@@ -83,12 +83,14 @@ app.get('/', (request, response) => {
   response.render('loginView');
 })
 
-app.get('/expenses', (request, response) => {
+app.get(`/expenses/:userId`, (request, response) => {
+  const userId = request.params.userId;
   async function getHistory() {
-    const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
+    const historyExp = await collectionExp.find({userId: userId}).sort({date:'desc'}).toArray();
     // console.log('history data from DB', historyExp);
     response.render("expensesView", {
       historyExpList: historyExp,
+      userName: userId
     })
   }
   getHistory().catch(err => {
@@ -96,11 +98,13 @@ app.get('/expenses', (request, response) => {
   })
 })
 
-app.get('/incomes', (request, response) => {
+app.get(`/incomes/:userId`, (request, response) => {
+  const userId = request.params.userId;
   async function getHistory() {
-    const historyInc = await collectionInc.find({}).sort({date:'desc'}).toArray();
+    const historyInc = await collectionInc.find({userId: userId}).sort({date:'desc'}).toArray();
     response.render("incomesView", {
       historyIncList: historyInc,
+      userName: userId
     })
   }
   getHistory().catch(err => {
@@ -144,7 +148,7 @@ app.post('/', (request, response) => {
       if(user.userPassword !== userData.userPassword) {
         throw new Error('Incorrect password');
       }
-      response.json('match');
+      response.json({userId: userData.userId});
     } catch(err) {
       console.log(err);
       if(err.message === 'User not found') {
@@ -161,10 +165,11 @@ app.post('/', (request, response) => {
 
 
 //insertOne
-app.post('/expenses', (request, response) => {
+app.post(`/expenses/:userId`, (request, response) => {
   const data = request.body;
+  const userId = request.body.userId;
   async function run() {
-  const insertOne = await collectionExp.insertOne(data);
+  const insertOne = await collectionExp.insertOne({ ...data, userId });
   console.log('Expense Data inserted!', insertOne);
   response.json();
 }
@@ -173,10 +178,11 @@ run().catch(err => {
 })
 })
 
-app.post('/incomes', (request, response) => {
+app.post(`/incomes/:userId`, (request, response) => {
   const data = request.body;
+  const userId = request.body.userId;
   async function run() {
-  const insertOne = await collectionInc.insertOne(data);
+  const insertOne = await collectionInc.insertOne({ ...data, userId });
   console.log('Income Data inserted!', insertOne);
   response.json();
 }
@@ -186,7 +192,8 @@ run().catch(err => {
 })
 
 //deleteMany
-app.delete('/expenses', (request, response) => {
+app.delete(`/expenses/:userId`, (request, response) => {
+  const userId = request.params;
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
@@ -199,7 +206,8 @@ run().catch(err => {
 })
 })
 
-app.delete('/incomes', (request, response) => {
+app.delete(`/incomes/:userId`, (request, response) => {
+  const userId = request.params;
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {

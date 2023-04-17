@@ -9,10 +9,12 @@
     <header class="header">
       <ul>
         <li><a href="/">Logout</a></li>
-        <li><a href="/expenses">Expenses</a></li>
-        <li><a href="/incomes">Incomes</a></li>
+        <li><a href="/expenses/<%= userName %>">Expenses</a></li>
+        <li><a href="/incomes/<%= userName %>">Incomes</a></li>
       </ul>
-      <h1 class="title">My Money List<span class="title_name">Incomes</span></h1>
+      <h1 class="title">
+        <p id="userName" data-userid="<%= userName %>" class="title_userId"><%= userName %>'s Money List</p>
+        <span class="title_name">Incomes</span></h1>
     </header>
 
     <section>
