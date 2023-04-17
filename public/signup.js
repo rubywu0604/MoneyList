@@ -31,7 +31,7 @@ document.getElementById('signupbtn').onclick = function signup(){
         if (data === 'exist') {
           alert('User already exists!');
         } else {
-          window.location.href = '/expenses.html';
+          window.location.href = '/expenses';
         }
       })
       .catch(error => {

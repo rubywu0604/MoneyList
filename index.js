@@ -31,13 +31,34 @@ const collectionExp = db.collection('expenses');
 const collectionInc = db.collection('incomes');
 const collectionUser = db.collection('user');
 const Schema = new mongoose.Schema({
-  date: Date,
-  time: String,
-  tag: String,
-  amount: Number,
-  userId: String,
-  password: String,
-  userEmail: String,
+  date: {
+    type: Date,
+    required: true
+  },
+  time: {
+    type: String,
+    required: true
+  },
+  tag: {
+    type: String,
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  userId: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  userEmail: {
+    type: String,
+    required: true
+  },
 });
 
 const userDB = mongoose.model('user', Schema);
@@ -55,14 +76,14 @@ app.use(express.json({limit: '1mb'}));
 app.set("view engine", "ejs");
 
 //get page
-app.get('/signup.html', (request, response) => {
+app.get('/signup', (request, response) => {
   response.render('signupView');
 })
 app.get('/', (request, response) => {
   response.render('loginView');
 })
 
-app.get('/expenses.html', (request, response) => {
+app.get('/expenses', (request, response) => {
   async function getHistory() {
     const historyExp = await collectionExp.find({}).sort({date:'desc'}).toArray();
     // console.log('history data from DB', historyExp);
@@ -75,7 +96,7 @@ app.get('/expenses.html', (request, response) => {
   })
 })
 
-app.get('/incomes.html', (request, response) => {
+app.get('/incomes', (request, response) => {
   async function getHistory() {
     const historyInc = await collectionInc.find({}).sort({date:'desc'}).toArray();
     response.render("incomesView", {
@@ -88,7 +109,7 @@ app.get('/incomes.html', (request, response) => {
 })
 
 //Signup and Login
-app.post('/signup.html', (request, response) => {
+app.post('/signup', (request, response) => {
   const userData = request.body;
   async function run() {
       const check = await collectionUser.findOne({userId: userData.userId});
@@ -140,7 +161,7 @@ app.post('/', (request, response) => {
 
 
 //insertOne
-app.post('/expenses.html', (request, response) => {
+app.post('/expenses', (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionExp.insertOne(data);
@@ -152,7 +173,7 @@ run().catch(err => {
 })
 })
 
-app.post('/incomes.html', (request, response) => {
+app.post('/incomes', (request, response) => {
   const data = request.body;
   async function run() {
   const insertOne = await collectionInc.insertOne(data);
@@ -165,7 +186,7 @@ run().catch(err => {
 })
 
 //deleteMany
-app.delete('/expenses.html', (request, response) => {
+app.delete('/expenses', (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
@@ -178,7 +199,7 @@ run().catch(err => {
 })
 })
 
-app.delete('/incomes.html', (request, response) => {
+app.delete('/incomes', (request, response) => {
   const selectedId = request.body.map(e => new ObjectId(e));
   const query = {_id: { $in: selectedId}};
   async function run() {
