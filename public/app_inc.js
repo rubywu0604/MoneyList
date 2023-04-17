@@ -4,14 +4,15 @@ document.getElementById('savebtn').onclick = function insertOne(){
   const time = document.getElementById('inputtime').value;
   const tag = document.getElementById('inputtag').value.toString();
   const amount = parseInt(document.getElementById('inputamount').value);
-  const data = {date, time, tag, amount};
-  if(data.date === ''){
+  const userId = document.getElementById('userName').dataset.userid;
+  const data = {date, time, tag, amount, userId};
+  if(date === ''){
     alert('Please select the <Date>');
-  }else if(data.time === ''){
+  }else if(time === ''){
     alert('Please select the <Time>');
-  }else if(data.tag === ''){
+  }else if(tag === ''){
     alert('Please input the <Tag>');
-  }else if(data.amount <= 0 || data.amount === ''){
+  }else if(amount <= 0 || !amount){
     alert('Please input the <Amount> greater than 0');
   }else{
   const options = { // package data as a POST
@@ -22,13 +23,13 @@ document.getElementById('savebtn').onclick = function insertOne(){
     body: JSON.stringify(data) //put data into javascript object
   };
 
-  fetch('/incomes', options)
+  fetch(`/incomes/${userId}`, options)
     .then(response => {
       console.log(JSON.parse(options.body), response);
+      location.reload();
     })
-  location.reload();
-};
-};
+  };
+}
 
 //Select hisotry data (checkbox button)
 const checkedValuesInc = [];
@@ -47,6 +48,8 @@ function selectedInc() {
 
 //Delete hisotry data (delete button)
 document.getElementById('deletebtn').onclick = function deleteMany(){
+  const userId = document.getElementById('userName').dataset.userid;
+  const data = { userId };
   if(checkedValuesInc[0] === undefined){
     alert('Please select at least one income.')
   }else{
@@ -55,15 +58,14 @@ document.getElementById('deletebtn').onclick = function deleteMany(){
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(selectedInc())
+    body: JSON.stringify(selectedInc(), data)
   }
-
-  fetch('/incomes', optionsDel)
+  fetch(`/incomes/${userId}`, optionsDel)
     .then(response => {
       console.log(JSON.parse(optionsDel.body), response);
+      location.reload();
     })
-  location.reload();
-};
+  };
 }
 
 //Edit hisotry data (edit button)
