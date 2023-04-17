@@ -1,5 +1,5 @@
 //Verify user (login button)
-document.getElementById('loginbtn').onclick = function signup() {
+document.getElementById('loginbtn').onclick = function login() {
   const userId = document.getElementById('login_id').value;
   const userPassword = document.getElementById('login_password').value;
   const userData = {userId, userPassword};
@@ -28,7 +28,7 @@ document.getElementById('loginbtn').onclick = function signup() {
         }
       })
       .then(data => {
-        window.location.href = '/expenses.html';
+        window.location.href = '/expenses';
       })
       .catch(error => {
         if(error.message === 'User not found') {
@@ -42,3 +42,6 @@ document.getElementById('loginbtn').onclick = function signup() {
       });
   }
 };
+
+
+// options.body.userId
