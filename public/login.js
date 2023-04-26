@@ -32,7 +32,7 @@ document.getElementById('loginbtn').onclick = function login() {
       })
       .catch(error => {
         if(error.message === 'User not found') {
-          alert('Id Incorrect!');
+          alert('Id Incorrect! Please try again or Signup to create new User Id.');
         } else if(error.message === 'Incorrect password') {
           alert('Password Incorrect!');
         } else {
