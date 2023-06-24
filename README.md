@@ -6,5 +6,5 @@ This project is a tool for record down your spendings and earnings.
 - [Demo Video](https://www.youtube.com/watch?v=R9zR3ATPqRY)
 
 ## Try it ! :key:
-Get start to create your own list.
+Get start to create your own list. (open when needed)
 - :earth_asia: [MoneyList](https://money-list-github-heroku.herokuapp.com/)
